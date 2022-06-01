@@ -19,7 +19,7 @@ namespace ToDoListApp.Controllers
             _logger = logger;
         }
 
-        public IActionRe                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    sult Index()
+        public IActionResult Index()
         {
             var item = new TodoItem
             {
