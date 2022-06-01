@@ -18,36 +18,26 @@
         }
         else
         {
-            <ul>
-                @foreach (var item in Model)
-                {
-                    <li>
-                        <div>
-                            @item.Id
-                        </div>
-                        <div>
-                            @item.Text
-                        </div>
-                        <div>
-                            @item.CreatedAt
-                        </div>
+    <ul>
+        @foreach (var item in Model)
+        {
+            <li class="list-group-item d-flex">
+                <div class="" style="margin-right: 5px">
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <input class="form-check-input" type="checkbox" value="@item.IsCompleted" />
+                        </label>
+                    </div>
+                </div>
+                <div>
+                    <small class="text-secondary">@item.CreatedAt.ToString("dd/MM/yyyy")</small>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>                    
+                    <p>@item.Text</p>
+                </div>
+            </li>
 
-                        @if (@item.IsCopmpleted)
-                        {
-                            <div>
-                                <input class="form-check-input" type="checkbox" checked />
-                            </div>
-                        }
-                        else
-                        {
-                            <div>
-                                <input class="form-check-input" type="checkbox" />
-                            </div>
-                        }
-
-                    </li>
-                }
-            </ul>
+        }
+    </ul>
         }
     </div>
     

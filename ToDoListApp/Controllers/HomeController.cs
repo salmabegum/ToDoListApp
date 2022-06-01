@@ -12,30 +12,46 @@ namespace ToDoListApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly List<TodoItem> _todoItems = new List<TodoItem>();
-
+        private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
+        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
 
         public IActionResult Index()
-        {
-            var item = new TodoItem
-            {
-                Id = 1,
-                Text = "Programming",
-                CreatedAt = DateTimeOffset.UtcNow,
-                IsCopmpleted = false
-            };
-            _todoItems.Add(item);
-            return View("Index",_todoItems);
+        {            
+            return View(_todoItems);
         }
 
+        [HttpGet]
         public IActionResult Create()
         {
             return View("Create");
         } 
+
+        [HttpPost]
+        public IActionResult Create(TodoItem model)
+        {
+            TodoItem item = new TodoItem()
+            {
+            Id = new Random().Next(),
+            Text = model.Text,
+            CreatedAt = DateTimeOffset.Now,
+            IsCompleted = model.IsCompleted
+            };                 
+            
+            _todoItems.Add(item);
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int todoitemId)
+        {
+            TodoItem item = _todoItems.Where(t=> t.Id==todoitemId).FirstOrDefault();
+            return View(item);
+            
+        }
         public IActionResult Privacy()
         {
             return View("Index",_todoItems);

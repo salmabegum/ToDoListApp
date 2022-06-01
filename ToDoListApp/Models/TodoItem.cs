@@ -14,7 +14,7 @@ namespace ToDoListApp.Models
          public string Text { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
 
-        public bool IsCopmpleted { get; set; }
+        public bool IsCompleted { get; set; }
 
 
     }
