@@ -25,14 +25,23 @@
                 <div class="" style="margin-right: 5px">
                     <div class="form-group form-check">
                         <label class="form-check-label">
-                            <input class="form-check-input" type="checkbox" value="@item.IsCompleted" />
+                            @if (item.IsCompleted)
+                            {
+                                <input class="form-check-input" type="checkbox" checked /> 
+                            }
+                            else
+                            {
+                                <input class="form-check-input" type="checkbox" /> 
+                            }
+                            
                         </label>
                     </div>
                 </div>
                 <div>
                     <small class="text-secondary">@item.CreatedAt.ToString("dd/MM/yyyy")</small>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>                    
-                    <p>@item.Text</p>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>
+                    <a class="text-danger">Delete</a>
+                    <p>@item.Text</p>                    
                 </div>
             </li>
 

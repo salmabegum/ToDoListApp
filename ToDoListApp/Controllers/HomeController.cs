@@ -46,11 +46,24 @@ namespace ToDoListApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult Edit(int todoitemId)
+        public IActionResult Edit(int id)
         {
-            TodoItem item = _todoItems.Where(t=> t.Id==todoitemId).FirstOrDefault();
+            TodoItem item = _todoItems.Where(t=> t.Id==id).FirstOrDefault();
             return View(item);
             
+        }
+
+        [HttpPost]
+        public IActionResult Edit(TodoItem model)
+        {
+            var originalitem = _todoItems.Where(t => t.Id == model.Id).FirstOrDefault();
+            var newitem = originalitem;
+            newitem.Text = model.Text;
+            newitem.IsCompleted = model.IsCompleted;
+            var position=_todoItems.IndexOf(originalitem);
+            _todoItems[position] = newitem;
+            return RedirectToAction("Index", "Home");
+
         }
         public IActionResult Privacy()
         {
