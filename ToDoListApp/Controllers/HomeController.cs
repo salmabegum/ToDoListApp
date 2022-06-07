@@ -6,22 +6,24 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using ToDoListApp.Models;
+using ToDoListApp.Repositories;
 
 namespace ToDoListApp.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
-        
+        private readonly MockToDoItemRepository _todoItemStore;
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            _todoItemStore = new MockToDoItemRepository();
         }
 
         public IActionResult Index()
         {            
-            return View(_todoItems);
+            return View(_todoItemStore.GetAll());
         }
 
         [HttpGet]
@@ -33,22 +35,14 @@ namespace ToDoListApp.Controllers
         [HttpPost]
         public IActionResult Create(TodoItem model)
         {
-            TodoItem item = new TodoItem()
-            {
-            Id = new Random().Next(),
-            Text = model.Text,
-            CreatedAt = DateTimeOffset.Now,
-            IsCompleted = model.IsCompleted
-            };                 
-            
-            _todoItems.Add(item);
+            _todoItemStore.Create(model);
             return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            TodoItem item = _todoItems.Where(t=> t.Id==id).FirstOrDefault();
+            TodoItem item = _todoItemStore.GetAll().Where(t=> t.Id==id).FirstOrDefault();
             return View(item);
             
         }
@@ -56,18 +50,27 @@ namespace ToDoListApp.Controllers
         [HttpPost]
         public IActionResult Edit(TodoItem model)
         {
-            var originalitem = _todoItems.Where(t => t.Id == model.Id).FirstOrDefault();
-            var newitem = originalitem;
-            newitem.Text = model.Text;
-            newitem.IsCompleted = model.IsCompleted;
-            var position=_todoItems.IndexOf(originalitem);
-            _todoItems[position] = newitem;
+            _todoItemStore.Edit(model);
             return RedirectToAction("Index", "Home");
 
         }
+        [HttpGet]
+        public IActionResult Delete(int id)
+        {
+            //linq 
+            var delitem = _todoItemStore.GetAll().Where(x => x.Id ==id).FirstOrDefault();
+            return View(delitem);
+        }
+        [HttpPost]
+        public IActionResult Delete(TodoItem model)
+        {
+            _todoItemStore.Delete(model);
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult Privacy()
         {
-            return View("Index",_todoItems);
+            return View("Index", _todoItemStore.GetAll());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -76,4 +79,5 @@ namespace ToDoListApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
-}
+}  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
