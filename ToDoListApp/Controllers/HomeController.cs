@@ -50,7 +50,7 @@ namespace ToDoListApp.Controllers
         [HttpPost]
         public IActionResult Edit(TodoItem model)
         {
-            _todoItemStore.Edit(model);
+            _todoItemStore.Update(model);
             return RedirectToAction("Index", "Home");
 
         }

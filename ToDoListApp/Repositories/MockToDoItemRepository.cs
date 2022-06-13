@@ -9,9 +9,14 @@ namespace ToDoListApp.Repositories
     public class MockToDoItemRepository
     {
         private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
-        public List<TodoItem> GetAll()
+        public IEnumerable<TodoItem> GetAll()
         {
             return _todoItems;
+        }
+
+        public TodoItem Get(int id)
+        {
+            return _todoItems.Where(x => x.Id == id).FirstOrDefault();            
         }
 
         public void Create(TodoItem model)
@@ -21,21 +26,17 @@ namespace ToDoListApp.Repositories
             _todoItems.Add(model);
         }
 
-        public void Edit(TodoItem model)
-        {
-            TodoItem OriginalItem = _todoItems.Where(x => x.Id == model.Id).FirstOrDefault();
-            var NewItem = OriginalItem;
-            NewItem.Text = model.Text;
-            NewItem.IsCompleted = model.IsCompleted;
-            int position = _todoItems.IndexOf(OriginalItem);
-            _todoItems[position] = NewItem;
+        public void Update(TodoItem model)
+        {           
+            var OriginalItem = _todoItems.Where(x => x.Id == model.Id).FirstOrDefault();            
+            OriginalItem.Text = model.Text;
+            OriginalItem.IsCompleted = model.IsCompleted;
         }
 
-        public void Delete(TodoItem model)
+        public void Delete(TodoItem item)
         {
-            var Item = _todoItems.Where(x => x.Id == model.Id).FirstOrDefault();
-            _todoItems.Remove(Item);
-            
+            var Item = _todoItems.Where(x => x.Id == item.Id).FirstOrDefault();
+            _todoItems.Remove(Item);            
         }
 
     }
