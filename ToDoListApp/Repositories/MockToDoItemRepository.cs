@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ToDoListApp.Contexts;
 using ToDoListApp.Models;
 
 namespace ToDoListApp.Repositories
 {
     public class MockToDoItemRepository
     {
+        #region properties
         private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
+
+        #endregion
+
+        #region constructor
+        public MockToDoItemRepository()
+        {
+
+        }
+        #endregion
         public IEnumerable<TodoItem> GetAll()
         {
             return _todoItems;
         }
+
 
         public TodoItem Get(int id)
         {
@@ -36,7 +48,7 @@ namespace ToDoListApp.Repositories
         public void Delete(TodoItem item)
         {
             var Item = _todoItems.Where(x => x.Id == item.Id).FirstOrDefault();
-            _todoItems.Remove(Item);            
+            _todoItems.Remove(item);            
         }
 
     }
