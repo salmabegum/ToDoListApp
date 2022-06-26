@@ -15,16 +15,12 @@ namespace ToDoListApp.Repositories
         #endregion
 
         #region constructor
-        public MockToDoItemRepository()
-        {
-
-        }
+        
         #endregion
         public IEnumerable<TodoItem> GetAll()
         {
             return _todoItems;
         }
-
 
         public TodoItem Get(int id)
         {

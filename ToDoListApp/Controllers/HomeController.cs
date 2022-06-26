@@ -14,12 +14,14 @@ namespace ToDoListApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MockToDoItemRepository _todoItemStore;
+        private readonly ToDoItemRepository _todoItemStore;
+        private readonly ApplicationDbContext _db;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ApplicationDbContext db)
         {
             _logger = logger;
-            _todoItemStore = new MockToDoItemRepository();            
+            _db = db;
+            _todoItemStore = new ToDoItemRepository(db);            
         }
 
         public IActionResult Index()

@@ -31,6 +31,7 @@ namespace ToDoListApp
                 {
                 options.UseSqlServer(Configuration.GetConnectionString("localSqlServerConnection"));
             });
+                             
             //services.AddTransient<ITodoItemRepository, MockTodoItemRepository>();
         }
 

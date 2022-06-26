@@ -22,22 +22,30 @@ namespace ToDoListApp.Repositories
 
         public TodoItem Get(int id)
         {
-            throw new NotImplementedException();
+            return  _db.TodoItems.Where(x => x.Id == id).FirstOrDefault();
+       
         }
 
         public void Create(TodoItem model)
         {
             _db.TodoItems.Add(model);
+            _db.SaveChanges();
         }
 
         public void Update(TodoItem model)
         {
-            throw new NotImplementedException();
+            var item = Get(model.Id);
+            item.Text = model.Text;
+            item.Price = model.Price;
+            item.IsCompleted = model.IsCompleted;
+            _db.SaveChanges();
         }
 
-        public void Delete(TodoItem item)
+        public void Delete(TodoItem model)
         {
-            throw new NotImplementedException();
+            var item = Get(model.Id);
+            _db.TodoItems.Remove(item);
+            _db.SaveChanges();
         }
     }
 }
