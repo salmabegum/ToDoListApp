@@ -18,20 +18,18 @@
             </div>
              <div class="form-group">
                
-                <label asp-for="Category" class="control-label"></label>
+                 <label asp-for="Category" class="control-label"></label>
                 <td>
 @Html.DropDownList("Category", new List<SelectListItem>
 {
    new SelectListItem{ Text="Vegetable", Value = "Vegetable" },
    new SelectListItem{ Text="Fruit", Value = "Fruit" },
    new SelectListItem{ Text="Meat", Value = "Meat" },
-   new SelectListItem{ Text="Cheese", Value = "Cheese" },
    new SelectListItem{ Text="Dairy", Value = "Dairy" },
-   new SelectListItem{ Text="Baked", Value = "Baked" },
    new SelectListItem{ Text="Spices", Value = "Spices" },
    new SelectListItem{ Text="Seafood", Value = "Seafood" },
-   new SelectListItem{ Text="Drinks", Value = "Drinks" },
-   new SelectListItem{ Text="Frozen", Value = "Frozen" },
+      new SelectListItem{ Text="Other", Value = "Other" },
+
 })
 </td>
                 <span asp-validation-for="Text" class="text-danger"></span>
