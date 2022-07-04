@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoListApp;
 using ToDoListApp.Contexts;
+using ToDoListApp.Repositories;
 
 namespace ToDoListApp
 {
@@ -31,6 +32,9 @@ namespace ToDoListApp
                 {
                 options.UseSqlServer(Configuration.GetConnectionString("localSqlServerConnection"));
             });
+            services.AddTransient< ITodoItemRepository, ToDoItemRepository>();
+  
+      
             //services.AddTransient<ITodoItemRepository, MockTodoItemRepository>();
         }
 

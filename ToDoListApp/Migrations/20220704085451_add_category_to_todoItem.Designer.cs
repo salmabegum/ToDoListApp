@@ -10,8 +10,8 @@ using ToDoListApp.Contexts;
 namespace ToDoListApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220621111546_initial_create")]
-    partial class initial_create
+    [Migration("20220704085451_add_category_to_todoItem")]
+    partial class add_category_to_todoItem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace ToDoListApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("datetimeoffset");

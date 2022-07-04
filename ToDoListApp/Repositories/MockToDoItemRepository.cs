@@ -7,7 +7,7 @@ using ToDoListApp.Models;
 
 namespace ToDoListApp.Repositories
 {
-    public class MockToDoItemRepository
+    public class MockToDoItemRepository : ITodoItemRepository
     {
         #region properties
         private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
@@ -31,10 +31,12 @@ namespace ToDoListApp.Repositories
             return _todoItems.Where(x => x.Id == id).FirstOrDefault();            
         }
 
-        public void Create(TodoItem model)
+        public void Add(TodoItem model)
         {
             model.Id = new Random().Next();
-            model.CreatedAt = DateTimeOffset.Now;            
+            model.CreatedAt = DateTime.Now;
+            model.Category = model.Category; 
+     
             _todoItems.Add(model);
         }
 
@@ -43,6 +45,8 @@ namespace ToDoListApp.Repositories
             var OriginalItem = _todoItems.Where(x => x.Id == model.Id).FirstOrDefault();            
             OriginalItem.Text = model.Text;
             OriginalItem.IsCompleted = model.IsCompleted;
+            OriginalItem.Price = model.Price;
+            OriginalItem.Category = model.Category;
         }
 
         public void Delete(TodoItem item)
@@ -50,6 +54,13 @@ namespace ToDoListApp.Repositories
             var Item = _todoItems.Where(x => x.Id == item.Id).FirstOrDefault();
             _todoItems.Remove(item);            
         }
+        public void DeleteRange(IEnumerable<TodoItem> items)
+        {
+
+            _todoItems.RemoveRange(0, items.Count());
+
+        }
+
 
     }
 }

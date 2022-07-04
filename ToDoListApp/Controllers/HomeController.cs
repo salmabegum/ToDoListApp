@@ -14,17 +14,30 @@ namespace ToDoListApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly MockToDoItemRepository _todoItemStore;
+        private readonly ITodoItemRepository _todoItemStore;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, ITodoItemRepository todoItemStore)
         {
             _logger = logger;
-            _todoItemStore = new MockToDoItemRepository();            
+            _todoItemStore = todoItemStore;            
         }
 
         public IActionResult Index()
         {            
             return View(_todoItemStore.GetAll());
+        }
+        public IActionResult Search(string searchTerm)
+        {
+            var items = _todoItemStore.GetAll();
+            var filteredItems = items.Where(x => x.Text.ToLower().Contains(searchTerm.ToLower()));
+            if (searchTerm == null)
+          { 
+             
+                return View("Index", items);
+            }
+
+            return View("Index", filteredItems);
         }
 
         [HttpGet]
@@ -36,7 +49,7 @@ namespace ToDoListApp.Controllers
         [HttpPost]
         public IActionResult Create(TodoItem model)
         {
-            _todoItemStore.Create(model);
+            _todoItemStore.Add(model);
             return RedirectToAction("Index", "Home");
         }
 
@@ -68,10 +81,21 @@ namespace ToDoListApp.Controllers
             _todoItemStore.Delete(model);
             return RedirectToAction("Index", "Home");
         }
+        public IActionResult DeleteAll()
+        {
+            var items = _todoItemStore.GetAll();
+            //foreach (var item in items)
+            //{
+            //    _todoItemStore.Delete(item);
+            //}
+            _todoItemStore.DeleteRange(items);
+
+            return RedirectToAction("Index" );
+        }
 
         public IActionResult Privacy()
         {
-            return View("Index", _todoItemStore.GetAll());
+            return View("Privacy", _todoItemStore.GetAll());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

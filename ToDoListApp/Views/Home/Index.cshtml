@@ -5,50 +5,74 @@
 }
 
 <div class="card">
-    <div class=" card-header">
-        <h1 class="fs-2 fw-light">Track your current tasks</h1>
-        <a asp-controller="Home" asp-action="Create">Create New</a>
+    <div class="card-header">
+        <h1 class="fs-3 fw-light">Organise your Grocery List</h1>
+        
+        <a asp-controller="Home" asp-action="Create">Create New</a> | 
+        <a class=" text-danger" asp-action="DeleteAll" onclick="return confirm('Are you sure you want delete all the items in the system?')">Clear all</a>
     </div>
+  
+       
     <div class="card-body">
+         <form asp-action="Search">
+            <input class="form-input" name="searchTerm" placeholder="Search by Name" type="text" />         
+            <button class="btn btn-primary" type="submit">Search</button> | <a asp-action="Index">Display List</a>
+        </form>            
+        <hr />     
+
         @if (!Model.Any())
         {
             <div class="alert alert-secondary">
-                You have no tasks in the system
+                You have no Grocery items added in the system
             </div>
-        }
-        else
+        } else
         {
-    <ul>
-        @foreach (var item in Model)
-        {
-            <li class="list-group-item d-flex">
-                <div class="" style="margin-right: 5px">
-                    <div class="form-group form-check">
-                        <label class="form-check-label">
-                            @if (item.IsCompleted)
-                            {
-                                <input class="form-check-input" type="checkbox" checked /> 
-                            }
-                            else
-                            {
-                                <input class="form-check-input" type="checkbox" /> 
-                            }
-                            
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <small class="text-secondary">@item.CreatedAt.ToString("dd/MM/yyyy")</small>
-                    <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>
-                    <a asp-action="Delete" asp-route-id="@item.Id" style="color:red">Delete</a>
-                    
-                    <p>@item.Text</p>
-                </div>
-            </li>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>                                        
+                    @foreach (var item in Model)
+                    {
+                        <tr>                  
+                            <th scope="row">1</th>
+                            <td>@item.Text</td>
+                            <td>@item.Category</td>
+                            <td>@item.PriceString</td>
+                            <td>@item.CreatedAtString</td>
+                        </tr>
 
-        }
-    </ul>
+                       
+                    }                                
+              </tbody>
+            </table>
+            @*<ul class="list-group list-group-flush">
+                @foreach (var item in Model)
+                {
+                    <li class="list-group-item d-flex">
+                        <div class="" style="margin-right: 5px">                            
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" disabled type="checkbox" value="@item.IsCompleted" @(item.IsCompleted ? "checked='checked'" : "") />
+                                </label>
+                            </div>                    
+                        </div>
+                        <div>
+                            <small class="text-secondary">@item.CreatedAtString</small>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" >Delete</a>
+                            <p>@item.Text - @item.PriceString</p>  
+                            <p>@item.Category</p>
+                        </div>
+                    </li>                  
+                }
+           *@ @*</ul>*@
         }
     </div>
-    
-</div>
+</div>              

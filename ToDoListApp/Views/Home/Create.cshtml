@@ -14,9 +14,22 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             
             <div class="form-group">
+                <p style=" color : blue ">Multiple items with the same name are accepted as IDs differ</p>
                 <label asp-for="Text" class="control-label"></label>
                 <input asp-for="Text" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+              
+            <div class="form-group">
+               
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class=" form-group">
+                  <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" type = "text " />
+                <span asp-validation-for="Price" class="text-danger"></span>
             </div>
            
             <div class="form-group form-check">

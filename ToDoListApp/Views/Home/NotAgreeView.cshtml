@@ -1,0 +1,11 @@
+﻿@model IEnumerable<TodoItem>
+@{
+    ViewData["Title"] = "NotAgreeView";
+}
+
+<h1>Not Agreeing to Privacy Policy</h1>
+<p>Not agreeing to our Privacy Policy and Terms and Conditions for this website, will mean that access will not be granted unless you 
+    agree to the rules of this website and accept the info that this web page does store from your PC. 
+    This webpage requires you to agree to these simple terms and conditions , so that we can keep improving your experience of the GroceryListApp.
+</p>
+ <input type="button" class="btn btn-danger" value="I understand and accept these rules..Take me back to the Home Page" onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" />
