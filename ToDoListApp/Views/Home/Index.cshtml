@@ -30,7 +30,7 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">IsCompleted</th>
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
@@ -41,18 +41,24 @@
                     @foreach (var item in Model)
                     {
                         <tr>                  
-                            <th scope="row">1</th>
-                            <td>@item.Text</td>
-                            <td>@item.Category</td>
+                            <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" disabled type="checkbox" value="@item.IsCompleted" @(item.IsCompleted ? "checked='checked'" : "") /></th>
+                            
+                            <td>@item.Text</td>                            
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;@item.Category</td>
                             <td>@item.PriceString</td>
-                            <td>@item.CreatedAtString</td>
+                            <td>&nbsp;&nbsp;@item.CreatedAtString  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" >Delete</a></td>
+                          
                         </tr>
 
                        
-                    }                                
+                    }     
+                
               </tbody>
             </table>
-            @*<ul class="list-group list-group-flush">
+           
+           @* <ul class="list-group list-group-flush">
                 @foreach (var item in Model)
                 {
                     <li class="list-group-item d-flex">
@@ -72,7 +78,7 @@
                         </div>
                     </li>                  
                 }
-           *@ @*</ul>*@
+           </ul>*@
         }
     </div>
 </div>              
