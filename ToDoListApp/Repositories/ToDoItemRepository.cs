@@ -28,6 +28,7 @@ namespace ToDoListApp.Repositories
         public void Add(TodoItem model)
         {
             model.CreatedAt = DateTimeOffset.Now;
+            model.TotalPrice = model.Price * model.Qty;
             _db.TodoItems.Add(model);
             _db.SaveChanges();
         }
@@ -37,8 +38,12 @@ namespace ToDoListApp.Repositories
             var originalItem = Get(model.Id);
             originalItem.Text = model.Text;
             originalItem.IsCompleted = model.IsCompleted;
+            originalItem.Qty  = model.Qty;
             originalItem.Price = model.Price;
+            originalItem.TotalPrice = model.Qty* model.Price;
+
             originalItem.Category = model.Category;
+       
             _db.SaveChanges();
         }
 

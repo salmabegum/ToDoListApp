@@ -35,8 +35,9 @@ namespace ToDoListApp.Repositories
         {
             model.Id = new Random().Next();
             model.CreatedAt = DateTime.Now;
-            model.Category = model.Category; 
-     
+            model.Category = model.Category;
+            model.Qty = model.Qty;
+
             _todoItems.Add(model);
         }
 
@@ -47,6 +48,8 @@ namespace ToDoListApp.Repositories
             OriginalItem.IsCompleted = model.IsCompleted;
             OriginalItem.Price = model.Price;
             OriginalItem.Category = model.Category;
+            OriginalItem.TotalPrice = model.TotalPrice;
+            OriginalItem.Qty = model.Qty;
         }
 
         public void Delete(TodoItem item)

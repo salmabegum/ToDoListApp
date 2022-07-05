@@ -34,7 +34,10 @@
                         <th scope="col">Name</th>
                         <th scope="col">Category</th>
                         <th scope="col">Price</th>
+                         <th scope="col">Qty</th>
+                        <th scope="col">Total Price</th>
                         <th scope="col">Date Created</th>
+                        
                     </tr>
                 </thead>
                 <tbody>                                        
@@ -44,11 +47,15 @@
                             <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" disabled type="checkbox" value="@item.IsCompleted" @(item.IsCompleted ? "checked='checked'" : "") /></th>
                             
                             <td>@item.Text</td>                            
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;@item.Category</td>
+                            <td>&nbsp;&nbsp;&nbsp;@item.Category</td>
+                                                         
                             <td>@item.PriceString</td>
+                               <td>&nbsp;&nbsp;@item.Qty</td>
+                            <td>&nbsp;&nbsp;@item.TotalPrice</td>
                             <td>&nbsp;&nbsp;@item.CreatedAtString  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a> |
                             <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" >Delete</a></td>
+
                           
                         </tr>
 

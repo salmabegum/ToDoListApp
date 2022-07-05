@@ -34,11 +34,17 @@
 </td>
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
+             <div class=" form-group">
+                  <label asp-for="Qty" class="control-label"></label>
+                <input asp-for="Qty" class="form-control" type = "number" />
+                <span asp-validation-for="Qty" class="text-danger"></span>
+            </div>
              <div class=" form-group"> 
 
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" type = "number" />
+                <label asp-for="Price" class="control-label">Price(change to original price)</label>
+                <input asp-for="Price" class="form-control" type = "number" > 
                 <span asp-validation-for="Price" class="text-danger"></span>
+                
             </div>
             <div class="form-group form-check mb-3">
                 <label class="form-check-label">
