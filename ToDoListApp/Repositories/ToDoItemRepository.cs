@@ -14,26 +14,26 @@ namespace ToDoListApp.Repositories
         {
             _db = db;            
         }
-        public IEnumerable<TodoItem> GetAll()
+        public IEnumerable<GroceryItem> GetAll()
         {
-            return _db.TodoItems;
+            return _db.GroceryItems;
         }
 
 
-        public TodoItem Get(int id)
+        public GroceryItem Get(int id)
         {
-        return _db .TodoItems.FirstOrDefault(x => x.Id == id);
+        return _db .GroceryItems.FirstOrDefault(x => x.Id == id);
         }
 
-        public void Add(TodoItem model)
+        public void Add(GroceryItem model)
         {
             model.CreatedAt = DateTimeOffset.Now;
             model.TotalPrice = model.Price * model.Qty;
-            _db.TodoItems.Add(model);
+            _db.GroceryItems.Add(model);
             _db.SaveChanges();
         }
 
-        public void Update(TodoItem model)
+        public void Update(GroceryItem model)
         {
             var originalItem = Get(model.Id);
             originalItem.Text = model.Text;
@@ -47,14 +47,14 @@ namespace ToDoListApp.Repositories
             _db.SaveChanges();
         }
 
-        public void Delete(TodoItem item)
+        public void Delete(GroceryItem item)
         {
-           _db.TodoItems.Remove(item);
+           _db.GroceryItems.Remove(item);
             _db.SaveChanges();
         }
-        public void DeleteRange(IEnumerable<TodoItem> items)
+        public void DeleteRange(IEnumerable<GroceryItem> items)
         {
-            _db.TodoItems.RemoveRange(items);
+            _db.GroceryItems.RemoveRange(items);
             _db.SaveChanges();
         }
 

@@ -5,12 +5,12 @@ namespace ToDoListApp.Repositories
 {
     public interface ITodoItemRepository
     {
-        IEnumerable<TodoItem> GetAll();
-        TodoItem Get(int id);
-        void Add (TodoItem item);
-        void Update (TodoItem item);
-        void Delete (TodoItem item);
-        void DeleteRange(IEnumerable<TodoItem> items);
+        IEnumerable<GroceryItem> GetAll();
+        GroceryItem Get(int id);
+        void Add (GroceryItem item);
+        void Update (GroceryItem item);
+        void Delete (GroceryItem item);
+        void DeleteRange(IEnumerable<GroceryItem> items);
 
 
     }

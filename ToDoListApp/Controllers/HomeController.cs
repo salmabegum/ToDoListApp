@@ -47,7 +47,7 @@ namespace ToDoListApp.Controllers
         } 
 
         [HttpPost]
-        public IActionResult Create(TodoItem model)
+        public IActionResult Create(GroceryItem model)
         {
             _todoItemStore.Add(model);
             return RedirectToAction("Index", "Home");
@@ -56,13 +56,13 @@ namespace ToDoListApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            TodoItem item = _todoItemStore.GetAll().Where(t=> t.Id==id).FirstOrDefault();
+            GroceryItem item = _todoItemStore.GetAll().Where(t=> t.Id==id).FirstOrDefault();
             return View(item);
             
         }
 
         [HttpPost]
-        public IActionResult Edit(TodoItem model)
+        public IActionResult Edit(GroceryItem model)
         {
             _todoItemStore.Update(model);
             return RedirectToAction("Index", "Home");
@@ -76,7 +76,7 @@ namespace ToDoListApp.Controllers
             return View(delitem);
         }
         [HttpPost]
-        public IActionResult Delete(TodoItem model)
+        public IActionResult Delete(GroceryItem model)
         {
             _todoItemStore.Delete(model);
             return RedirectToAction("Index", "Home");

@@ -1,4 +1,4 @@
-﻿@model ToDoListApp.Models.TodoItem
+﻿@model ToDoListApp.Models.GroceryItem
 
 @{
     ViewData["Title"] = "Create";
@@ -6,7 +6,7 @@
 
 <h1>Create</h1>
 
-<h4>TodoItem</h4>
+<h4>GroceryItem</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -23,9 +23,10 @@
             <div class="form-group">
                
                 <label asp-for="Category" class="control-label"></label>
-                <td>
+                <td  >
 @Html.DropDownList("Category", new List<SelectListItem>
 {
+       new SelectListItem{ Text="Select", Value = "Select" },
    new SelectListItem{ Text="Vegetable", Value = "Vegetable" },
    new SelectListItem{ Text="Fruit", Value = "Fruit" },
    new SelectListItem{ Text="Meat", Value = "Meat" },
@@ -36,7 +37,7 @@
 
 })
 </td>
-                @*<input asp-for="Category" class="form-control" />*@
+                <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
               <div class=" form-group">
@@ -45,7 +46,7 @@
                 <span asp-validation-for="Qty" class="text-danger"></span>
             </div>
             <div class=" form-group">
-                  <label asp-for="Price " class="control-label">Price(each item)</label>
+                  <label asp-for="Price " class="control-label">   </label>
                 <input asp-for="Price" class="form-control" type = "text " />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>

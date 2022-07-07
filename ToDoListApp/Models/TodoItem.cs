@@ -7,11 +7,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ToDoListApp.Models
 {
-    public class TodoItem
+    public class GroceryItem
     {
         
         public int Id { get; set;  }
-         
+        public int CategoryId { get; set;  } 
+
         [Required(ErrorMessage ="Text must NOT be empty")]
         [StringLength(10, MinimumLength = 3, ErrorMessage = "Text must be at least 3 characters but no more than 10 characters")]
         public string Text { get; set; }
@@ -20,7 +21,7 @@ namespace ToDoListApp.Models
         public decimal TotalPrice { get; set; }
 
 
-        public string Category { get; set; }
+        
 
         public int Qty { get; set; }
 
@@ -43,7 +44,9 @@ namespace ToDoListApp.Models
         }
 
          
-        public bool IsCompleted { get; set; }        
-      
+        public bool IsCompleted { get; set; }
+        //Navigation Property
+        public virtual  Category Category { get; set; }
+
     }
 }

@@ -10,7 +10,7 @@ namespace ToDoListApp.Repositories
     public class MockToDoItemRepository : ITodoItemRepository
     {
         #region properties
-        private static readonly List<TodoItem> _todoItems = new List<TodoItem>();
+        private static readonly List<GroceryItem> _todoItems = new List<GroceryItem>();
 
         #endregion
 
@@ -20,18 +20,18 @@ namespace ToDoListApp.Repositories
 
         }
         #endregion
-        public IEnumerable<TodoItem> GetAll()
+        public IEnumerable<GroceryItem> GetAll()
         {
             return _todoItems;
         }
 
 
-        public TodoItem Get(int id)
+        public GroceryItem Get(int id)
         {
             return _todoItems.Where(x => x.Id == id).FirstOrDefault();            
         }
 
-        public void Add(TodoItem model)
+        public void Add(GroceryItem model)
         {
             model.Id = new Random().Next();
             model.CreatedAt = DateTime.Now;
@@ -41,7 +41,7 @@ namespace ToDoListApp.Repositories
             _todoItems.Add(model);
         }
 
-        public void Update(TodoItem model)
+        public void Update(GroceryItem model)
         {           
             var OriginalItem = _todoItems.Where(x => x.Id == model.Id).FirstOrDefault();            
             OriginalItem.Text = model.Text;
@@ -52,12 +52,12 @@ namespace ToDoListApp.Repositories
             OriginalItem.Qty = model.Qty;
         }
 
-        public void Delete(TodoItem item)
+        public void Delete(GroceryItem item)
         {
             var Item = _todoItems.Where(x => x.Id == item.Id).FirstOrDefault();
             _todoItems.Remove(item);            
         }
-        public void DeleteRange(IEnumerable<TodoItem> items)
+        public void DeleteRange(IEnumerable<GroceryItem> items)
         {
 
             _todoItems.RemoveRange(0, items.Count());
