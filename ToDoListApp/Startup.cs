@@ -28,7 +28,7 @@ namespace ToDoListApp
         {
             string databaseUrl =Configuration["Database_URL"];
             Uri uri = new Uri(databaseUrl);
-            return $"host={uri.Host};username={uri.UserInfo.Split(':')[0]}; password={uri.UserInfo.Split(':')[1]};database={uri.LocalPath.Substring(1)};pooling=true;SSl Mode=Require;TrustServerCertificat e=True;";
+            return $"host={uri.Host};username={uri.UserInfo.Split(':')[0]}; password={uri.UserInfo.Split(':')[1]};database={uri.LocalPath.Substring(1)};pooling=true;SSl Mode=Require;TrustServerCertificate=True;";
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
