@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using ToDoListApp.Models;
 
 namespace ToDoListApp.Repositories
 {
-    public class ToDoItemRepository : ITodoItemRepository
+    public class ToDoItemRepository : IRepository<GroceryItem>
     {
         private readonly ApplicationDbContext _db;
         public ToDoItemRepository(ApplicationDbContext db)
@@ -16,7 +17,7 @@ namespace ToDoListApp.Repositories
         }
         public IEnumerable<GroceryItem> GetAll()
         {
-            return _db.GroceryItems;
+            return _db.GroceryItems.Include(x => x.Category);
         }
 
 
@@ -24,10 +25,11 @@ namespace ToDoListApp.Repositories
         {
         return _db .GroceryItems.FirstOrDefault(x => x.Id == id);
         }
-
+     
         public void Add(GroceryItem model)
         {
-            model.CreatedAt = DateTimeOffset.Now;
+                model.CreatedAt = DateTimeOffset.UtcNow;
+            model.CategoryId = model.CategoryId;
             model.TotalPrice = model.Price * model.Qty;
             _db.GroceryItems.Add(model);
             _db.SaveChanges();

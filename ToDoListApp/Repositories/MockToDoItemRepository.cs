@@ -34,8 +34,8 @@ namespace ToDoListApp.Repositories
         public void Add(GroceryItem model)
         {
             model.Id = new Random().Next();
+            model.CategoryId = new Random().Next();
             model.CreatedAt = DateTime.Now;
-            model.Category = model.Category;
             model.Qty = model.Qty;
 
             _todoItems.Add(model);

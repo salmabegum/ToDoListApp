@@ -1,32 +1,35 @@
 ﻿@{
     ViewData["Title"] = "Privacy Policy";
 }
-<h1>Privacy Policy and Terms and Conditions</h1>
+
+<div class="alert alert-secondary">
+               <h1>Privacy Policy and Terms and Conditions</h1>
+            </div>
 
 <p>This page details this site's privacy policy.</p>
 
-<h3> This site must not be recreated without permission as it is a private 
-    deployed web page. You Must agree to the Terms and Conditions of this app which are: </h3>
+<p> This site must not be recreated without permission as it is a private 
+    deployed web page. You Must agree to the Terms and Conditions of this app which are: </p>
     <ul>
        <li>Spamming and hacking is Unacceptable</li> 
        <li>      All rules must be followed as according to the internet or any web page</li> 
   
        <li>Users must be 9 or over</li> 
-       <li>        Passwords must not be shared anywhere as this web page does not require a login</li>
-       <li>   This is not a licensed web page</li>
+       <li>        Passwords must not be shared anywhere in the data input fields as values because this web page does not require a login</li>
        <li>
-        This web page must not be redeployed if created using ths source</li>
+        This web page must not be redeployed if created using this source</li>
        
 
     </ul>
-     <p>Please keep in mind that other than a customizable generated username and password (for this web page only), 
-we don't store any other info from your PC.
+     <p>Please keep in mind that other than a customizable generated username and password (for this web page only which normally isn't required), 
+and input from you into the data input fields, we don't store any other info from your PC.
         </p>
-    <h3>These rules must be followed strictly and safely on this web page.</h3>
+    <p>These rules must be followed strictly and safely on this web page.</p>
 
-    
+
      
          
     
 
        <input type="button" class="btn btn-danger" value="Agree" onclick="@("window.location.href='" + @Url.Action("Index", "Home") + "'");" />
+          <small>This Web page is created by Daniya Syeda</small>

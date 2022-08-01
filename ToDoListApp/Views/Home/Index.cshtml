@@ -9,9 +9,10 @@
         <h1 class="fs-3 fw-light">Organise your Grocery List</h1>
         
         <a asp-controller="Home" asp-action="Create">Create New</a> | 
+        <a href=""  data-toggle="modal"  class= "text-success" data-target="#sortModal">Sort</a> |
         <a class=" text-danger" asp-action="DeleteAll" onclick="return confirm('Are you sure you want delete all the items in the system?')">Clear all</a>
     </div>
-  
+ 
        
     <div class="card-body">
          <form asp-action="Search">
@@ -47,23 +48,59 @@
                             <th scope="row">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" disabled type="checkbox" value="@item.IsCompleted" @(item.IsCompleted ? "checked='checked'" : "") /></th>
                             
                             <td>@item.Text</td>                            
-                            <td>&nbsp;&nbsp;&nbsp;@item.Category</td>
+                            <td>&nbsp;&nbsp;&nbsp;@item.Category?.Name</td>
                                                          
                             <td>@item.PriceString</td>
                                <td>&nbsp;&nbsp;@item.Qty</td>
                             <td>&nbsp;&nbsp;$@item.TotalPrice</td>
                             <td>&nbsp;&nbsp;@item.CreatedAtString  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" >Delete</a></td>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" onclick="return confirm('Are you sure you want delete this task?')">Delete</a></td>
 
                           
                         </tr>
+
 
                        
                     }     
                 
               </tbody>
             </table>
+
+              <!-- Sort Modal -->
+            <div class="modal fade" id="sortModal" tabindex="-1" role="dialog" aria-labelledby="sortModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sort Your items</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form asp-action="Sort">
+                        <div>
+                            <label class="control-label mb-1 text-secondary">Sort By</label>
+                            <select name="sortBy" class="custom-select mb-3">
+                                <option>CreatedAt</option>
+                                <option>Price</option>
+                            </select>
+                        </div>                       
+
+                        <div>
+                            <label class="control-label mb-1 text-secondary">Order By</label>
+                            <select name="orderBy" class="custom-select mb-3">
+                                <option>Asc</option>
+                                <option>Desc</option>
+                            </select>
+                        </div>                       
+                        <button type="submit" class="btn btn-primary">Sort</button>
+                    </form>
+                  </div>                 
+                </div>
+              </div>
+            </div>
+
            
            @* <ul class="list-group list-group-flush">
                 @foreach (var item in Model)
@@ -79,7 +116,7 @@
                         <div>
                             <small class="text-secondary">@item.CreatedAtString</small>
                             <a asp-action="Edit" asp-route-id="@item.Id" class="">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger" >Delete</a>
+                            
                             <p>@item.Text - @item.PriceString</p>  
                             <p>@item.Category</p>
                         </div>

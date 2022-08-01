@@ -12,7 +12,6 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            
             <div class="form-group">
                 <p style=" color : blue ">Multiple items with the same name are accepted as IDs differ</p>
                 <label asp-for="Text" class="control-label"></label>
@@ -20,29 +19,19 @@
                 <span asp-validation-for="Text" class="text-danger"></span>
             </div>
               
-            <div class="form-group">
-               
-                <label asp-for="Category" class="control-label"></label>
-                <td  >
-@Html.DropDownList("Category", new List<SelectListItem>
-{
-       new SelectListItem{ Text="Select", Value = "Select" },
-   new SelectListItem{ Text="Vegetable", Value = "Vegetable" },
-   new SelectListItem{ Text="Fruit", Value = "Fruit" },
-   new SelectListItem{ Text="Meat", Value = "Meat" },
-   new SelectListItem{ Text="Dairy", Value = "Dairy" },
-   new SelectListItem{ Text="Spices", Value = "Spices" },
-   new SelectListItem{ Text="Seafood", Value = "Seafood" },
-      new SelectListItem{ Text="Other", Value = "Other" },
-
-})
-</td>
-                <input asp-for="Category" class="form-control" />
-                <span asp-validation-for="Text" class="text-danger"></span>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsCompleted" /> @Html.DisplayNameFor(model => model.IsCompleted)
+                </label>
             </div>
+            
+            
+         
+         
+            
               <div class=" form-group">
                   <label asp-for="Qty" class="control-label"></label>
-                <input asp-for="Qty" class="form-control" type = "number" />
+                <input asp-for="Qty" class="form-control" type = "number"  />
                 <span asp-validation-for="Qty" class="text-danger"></span>
             </div>
             <div class=" form-group">
@@ -50,11 +39,20 @@
                 <input asp-for="Price" class="form-control" type = "text " />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+   
            
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsCompleted" /> @Html.DisplayNameFor(model => model.IsCompleted)
-                </label>
+                 <div class="form-group mb-3">
+                <label class="control-label">Category</label>
+                <select asp-for="CategoryId" class="custom-select">
+                    @foreach (var category in ViewBag.Categories)
+                    {
+                        <option value="@category.Id">@category.Name</option>
+                    }
+                    <p>    
+                        &nbsp;
+                    </p>
+                </select>  
+                 
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

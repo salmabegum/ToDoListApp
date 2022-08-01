@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ToDoListApp;
 using ToDoListApp.Contexts;
+using ToDoListApp.Models;
 using ToDoListApp.Repositories;
 
 namespace ToDoListApp
@@ -23,6 +24,12 @@ namespace ToDoListApp
         }
 
         public IConfiguration Configuration { get; }
+        string GetRemoteConnectionString()
+        {
+            string databaseUrl =Configuration["Database_URL"];
+            Uri uri = new Uri(databaseUrl);
+            return $"host={uri.Host};username={uri.UserInfo.Split(':')[0]}; password={uri.UserInfo.Split(':')[1]};database={uri.LocalPath.Substring(1)};pooling=true;SSl Mode=Require;TrustServerCertificat e=True;";
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -30,11 +37,13 @@ namespace ToDoListApp
             services.AddControllersWithViews();
             services.AddDbContext<ApplicationDbContext>(options =>
                 {
-                options.UseSqlServer(Configuration.GetConnectionString("localSqlServerConnection"));
+                    // options.UseSqlServer(Configuration.GetConnectionString("localSqlServerConnection"));
+                    options.UseNpgsql(GetRemoteConnectionString());
             });
-            services.AddTransient< ITodoItemRepository, ToDoItemRepository>();
-  
-      
+            services.AddTransient<IRepository<GroceryItem>, ToDoItemRepository>();
+            services.AddTransient<IRepository<Category>, CategoryRepository>();
+
+
             //services.AddTransient<ITodoItemRepository, MockTodoItemRepository>();
         }
 
@@ -43,7 +52,6 @@ namespace ToDoListApp
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -52,6 +60,7 @@ namespace ToDoListApp
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+                app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
 
             app.UseRouting();
