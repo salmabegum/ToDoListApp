@@ -62,6 +62,19 @@ namespace ToDoListApp.Controllers
                     items = items.OrderByDescending(x => x.CreatedAt);
                 }
             }
+            else if (sortBy == "Price")
+            {
+
+                if (orderBy == "Asc")
+                {
+                    items = items.OrderBy(x => x.Price);
+                }
+                else if (orderBy == "Desc")
+                {
+                    
+                    items = items.OrderByDescending(x => x.Price);
+                }
+            }
             else if (sortBy == "Total Price")
             {
 
@@ -71,7 +84,7 @@ namespace ToDoListApp.Controllers
                 }
                 else if (orderBy == "Desc")
                 {
-                    
+
                     items = items.OrderByDescending(x => x.TotalPrice);
                 }
             }
